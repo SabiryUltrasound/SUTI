@@ -56,17 +56,29 @@ const CEOSection = () => {
                       <div>
                         <strong className="text-gray-300">Qualifications:</strong>
                         <ul className="list-disc pl-5 mt-1 grid grid-cols-2 gap-x-4 gap-y-1">
-                          <li>M.B.B.S (Pak)</li>
-                          <li>M.S.</li>
-                          <li>Ph.D</li>
-                          <li>D.M.R.D (Pak)</li>
-                          <li>R.M.P (Pak)</li>
-                          <li>M.U.S.P. (Pak)</li>
+                          <li>M.B.B.S (Pb)</li>
+                          <li>M.S (Diagonistic Ultrasound)</li>
+                          <li>Ph.D (Diagonistic Ultrasound)</li>
+                          <li>D.M.R.D (Pb)</li>
+                          <li>R.M.P (Pk)</li>
+                          <li>M.U.S.P. (Pk)</li>
                           <li>M.A.I.U.M (USA)</li>
                           <li>F.T.I.D.U (Tokyo)</li>
                         </ul>
                       </div>
-                      <p><strong className="text-gray-300">Affiliations:</strong> Member, American Institute of Ultrasound in Medicine</p>
+                      <div className="space-y-2">
+                        <strong className="text-gray-300">Affiliations & Roles:</strong>
+                        <ul className="list-disc pl-5 mt-1 space-y-1 text-gray-400">
+                          <li>Ex. Assistant Professor, AFRO-ASIAN Institute, Lahore</li>
+                          <li>Ex. Associate Professor, The University of Faisalabad (Radiology)</li>
+                          <li>Associate Professor Radiology, University of Lahore</li>
+                          <li>Member, American Institute of Ultrasound Medicine</li>
+                          <li>Member, Ultrasound Society of Pakistan</li>
+                          <li>Certified in Advanced Color Doppler Ultrasound Imaging (UOL)</li>
+                          <li><strong>Director, Medical Imaging, Sabiry Ultrasound Training Institute (SUTI)</strong></li>
+                          <li><strong>Consultant Radiologist & Sonologist</strong></li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>

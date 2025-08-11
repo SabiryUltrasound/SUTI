@@ -36,13 +36,13 @@ const Footer = () => {
               <li>
                 <a href="mailto:sabiryultrasound@gmail.com" className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors">
                   <Mail className="h-5 w-5 text-purple-400" />
-                  <span>Email Us</span>
+                  <span>sabiryultrasound@gmail.com</span>
                 </a>
               </li>
               <li>
                 <a href="tel:+923477149100" className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors">
                   <Phone className="h-5 w-5 text-purple-400" />
-                  <span>Call Us</span>
+                  <span>+92 347 7149100</span>
                 </a>
               </li>
               <li>

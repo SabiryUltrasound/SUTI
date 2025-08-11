@@ -49,7 +49,6 @@ const DashboardLayout = ({ children, userType }: DashboardLayoutProps) => {
     { icon: Bell, label: "Notifications", path: "/admin/notifications" },
     { icon: Clock, label: "Manage Assignments", path: "/admin/manage-assignments" },
     { icon: CheckCircle, label: "Manage Quizzes", path: "/admin/manage-quizzes" },
-    { icon: HelpCircle, label: "Manage Questions", path: "/admin/manage-questions" },
     { icon: FileText, label: "Manage Videos", path: "/admin/manage-videos" },
   ];
 
