@@ -73,7 +73,8 @@ const AssignmentDetailPage = () => {
       toast({ title: "Success", description: data.detail || "Assignment submitted successfully." });
       navigate('/student/assignments');
     } catch (err: any) {
-      toast({ title: "Submission Failed", description: err.message, variant: "destructive" });
+      const errorMessage = err.response?.data?.detail || err.message || "An unknown error occurred.";
+      toast({ title: "Submission Failed", description: errorMessage, variant: "destructive" });
     } finally {
       setIsSubmitting(false);
     }
