@@ -109,14 +109,16 @@ const MyCourses = () => {
                     <div className="p-6 flex flex-col flex-grow">
                       <h3 className="text-xl font-bold text-white mb-2 leading-tight">{course.title}</h3>
                       {course.instructor && <p className="text-sm text-purple-400 font-medium mb-4">By {course.instructor}</p>}
-                      <div className="mt-auto">
-                        <div className="w-full bg-gray-700/50 rounded-full h-2.5 mb-2">
-                          <div className="bg-gradient-to-r from-purple-500 to-pink-500 h-2.5 rounded-full" style={{ width: `${course.progress || 0}%` }}></div>
-                        </div>
-                        <p className="text-right text-xs text-gray-400 mb-4">{Math.round(course.progress || 0)}% Complete</p>
+                      <div className="mt-auto pt-4">
+                        {course.expiration_date && (
+                          <div className="flex items-center text-sm text-yellow-400 mb-4">
+                            <Clock className="mr-2 h-4 w-4" />
+                            <span>Expires on: {new Date(course.expiration_date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                          </div>
+                        )}
                         <button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold py-2.5 px-4 rounded-lg transition-transform duration-300 transform group-hover:scale-105 shadow-lg shadow-purple-500/30 flex items-center justify-center">
                           <Play className="mr-2 h-5 w-5" />
-                          {course.progress === 100 ? 'Review Course' : 'Continue Learning'}
+                          Go to Course
                         </button>
                       </div>
                     </div>
