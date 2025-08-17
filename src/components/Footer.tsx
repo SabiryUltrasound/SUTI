@@ -60,7 +60,7 @@ const Footer = () => {
             <p className="text-sm text-gray-400 mb-4">Our support team is just a message away.</p>
             <Button asChild className="w-full text-base font-semibold text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 transform hover:scale-105 transition-transform duration-300 shadow-lg shadow-purple-500/30 rounded-full px-6 py-5">
               <a 
-                href="https://wa.me/923477149100?text=Hello%20SUTI%20Support%2C%20I%20need%20help."
+                href="https://wa.me/+923477149100?text=Hello%20SUTI%20Support%2C%20I%20need%20help."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2"
