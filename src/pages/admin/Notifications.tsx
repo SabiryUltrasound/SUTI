@@ -216,9 +216,11 @@ const AdminNotifications: FC = () => {
                     {(proofUrl || (notification.event_type === 'payment_proof' && notification.user_id && notification.course_id)) && (
                       <CardFooter className="flex flex-wrap justify-between items-center bg-gray-900/50 p-4 pl-14 gap-4">
                         {proofUrl && (
-                          <a href={proofUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center font-semibold text-purple-400 hover:text-purple-300 transition-colors gap-2">
-                            View Payment Proof <ExternalLink className="h-4 w-4" />
-                          </a>
+                          <Button asChild size="sm" variant="outline" className="font-semibold text-purple-400 hover:text-purple-300 gap-2">
+                            <a href={proofUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
+                              View Payment Proof <ExternalLink className="h-4 w-4" />
+                            </a>
+                          </Button>
                         )}
                         {notification.event_type === 'payment_proof' && notification.user_id && notification.course_id && (
                           <Button asChild size="sm" className="bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold hover:scale-105 transition-transform">
