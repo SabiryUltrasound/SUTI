@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 import { fetchWithAuth } from "@/lib/api";
 import DashboardLayout from "@/components/DashboardLayout";
 import { Button } from "@/components/ui/button";
@@ -26,6 +27,7 @@ const AdminStudents = () => {
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("all");
+  const [deletingId, setDeletingId] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchStudents = async () => {
@@ -75,6 +77,37 @@ const AdminStudents = () => {
 
     setFilteredStudents(result);
   }, [searchTerm, activeTab, students]);
+
+  const handleDelete = async (studentId: string) => {
+    if (window.confirm("Are you sure you want to permanently delete this user?")) {
+      setDeletingId(studentId);
+      try {
+        const token = localStorage.getItem('admin_access_token');
+        const response = await fetchWithAuth(
+          `https://student-portal-lms-seven.vercel.app/api/admin/users/${studentId}`,
+          {
+            method: 'DELETE',
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          }
+        );
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.detail || "Failed to delete student");
+        }
+
+        setStudents(prevStudents => prevStudents.filter(s => s.id !== studentId));
+        toast.success("Now, Student does not have access to the platform.");
+
+      } catch (err: any) {
+        toast.error(err.message || "Failed to delete student");
+      } finally {
+        setDeletingId(null);
+      }
+    }
+  };
 
   const getInitials = (email: string) => {
     return email.substring(0, 2).toUpperCase();
@@ -175,8 +208,18 @@ const AdminStudents = () => {
                                 </Button>
                               </DropdownMenuTrigger>
                               <DropdownMenuContent align="end" className="bg-gray-800 border-gray-700 text-white">
-                                <DropdownMenuItem className="hover:bg-gray-700">View Details</DropdownMenuItem>
-                                <DropdownMenuItem className="hover:bg-gray-700">Deactivate</DropdownMenuItem>
+                                <DropdownMenuItem className="hover:bg-gray-700 cursor-pointer">View Details</DropdownMenuItem>
+                                <DropdownMenuItem 
+                                  className="text-red-400 hover:bg-red-500/10 hover:text-red-300 cursor-pointer"
+                                  onClick={() => handleDelete(student.id)}
+                                  disabled={deletingId === student.id}
+                                >
+                                  {deletingId === student.id ? (
+                                    <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Deleting...</>
+                                  ) : (
+                                    'Delete'
+                                  )}
+                                </DropdownMenuItem>
                               </DropdownMenuContent>
                             </DropdownMenu>
                           </TableCell>
