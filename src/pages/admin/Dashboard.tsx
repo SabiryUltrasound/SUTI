@@ -78,7 +78,7 @@ const AdminDashboard = () => {
     if (stats) {
       return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          <StatCard title="Total Revenue" value={`$${stats.total_revenue.toLocaleString()}`} icon={<DollarSign size={28} />} color="from-green-400 to-teal-500" />
+          <StatCard title="Total Revenue" value={`PKR ${stats.total_revenue.toLocaleString()}`} icon={<DollarSign size={28} />} color="from-green-400 to-teal-500" />
           <StatCard title="Total Enrollments" value={stats.total_enrollments.toLocaleString()} icon={<Users size={28} />} color="from-blue-400 to-indigo-500" />
           <StatCard title="Total Courses" value={stats.total_courses.toLocaleString()} icon={<BookCopy size={28} />} color="from-purple-400 to-pink-500" />
           <StatCard title="Completion Rate" value={`${stats.completion_rate}%`} icon={<BadgeCheck size={28} />} color="from-yellow-400 to-orange-500" />
