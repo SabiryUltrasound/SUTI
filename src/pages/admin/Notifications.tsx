@@ -9,6 +9,21 @@ import { Bell, AlertCircle, Loader2, ExternalLink, Trash2, CheckCircle2, XCircle
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
 
+// Helper to convert URLs in text to clickable links
+const linkifyText = (text: string) => {
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  return text.split(urlRegex).map((part, i) => {
+    if (urlRegex.test(part)) {
+      return (
+        <a key={i} href={part} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-purple-400 font-semibold hover:text-purple-300 underline">
+          {part}
+        </a>
+      );
+    }
+    return part;
+  });
+};
+
 interface Notification {
   id: string;
   user_id: string;
@@ -207,7 +222,14 @@ const AdminNotifications: FC = () => {
                       </TooltipProvider>
                     </CardHeader>
                     <CardContent className="p-4 pt-0 pl-14">
-                      <p className="text-gray-300 mb-4">{notification.details.startsWith('{') ? JSON.parse(notification.details).message : notification.details}</p>
+                      {(() => {
+                        const detailText = notification.details.startsWith('{') ? JSON.parse(notification.details).message : notification.details;
+                        return (
+                          <p className="prose prose-sm prose-invert text-gray-300 mb-4 whitespace-pre-line break-words">
+                            {linkifyText(detailText)}
+                          </p>
+                        );
+                      })()}
                       <div className="flex flex-wrap gap-4">
                         {renderDetail('User ID', notification.user_id)}
                         {renderDetail('Course ID', notification.course_id)}
@@ -216,9 +238,9 @@ const AdminNotifications: FC = () => {
                     {(proofUrl || (notification.event_type === 'payment_proof' && notification.user_id && notification.course_id)) && (
                       <CardFooter className="flex flex-wrap justify-between items-center bg-gray-900/50 p-4 pl-14 gap-4">
                         {proofUrl && (
-                          <a href={proofUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center font-semibold text-purple-400 hover:text-purple-300 transition-colors gap-2">
-                            View Payment Proof <ExternalLink className="h-4 w-4" />
-                          </a>
+                          <Button size="sm" variant="outline" className="font-semibold text-purple-400 hover:text-purple-300 gap-2" onClick={() => window.open(proofUrl, '_blank', 'noopener,noreferrer') }>
+                            View Payment Proof <ExternalLink className="h-4 w-4 ml-1" />
+                          </Button>
                         )}
                         {notification.event_type === 'payment_proof' && notification.user_id && notification.course_id && (
                           <Button asChild size="sm" className="bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold hover:scale-105 transition-transform">
