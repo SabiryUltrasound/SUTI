@@ -11,13 +11,19 @@ import { Loader2, CheckCircle, XCircle, User, Book, Phone, Award, Briefcase, Fil
 
 interface Application {
     id: string;
-    user: { name: string; email: string };
+    user?: { name?: string; full_name?: string; first_name?: string; last_name?: string; email?: string };
     course: { title: string };
     status: 'pending' | 'approved' | 'rejected';
     qualification: string;
     qualification_certificate_url: string;
     contact_number: string;
     ultrasound_experience: string;
+    // Possible alternative fields from API responses
+    applicant_name?: string;
+    student_name?: string;
+    email?: string;
+    first_name?: string;
+    last_name?: string;
 }
 
 const AdminApplications: FC = () => {
@@ -70,6 +76,27 @@ const AdminApplications: FC = () => {
         }
     };
 
+    // Resolve applicant/student name robustly across potential API shapes
+    const getApplicantName = (app: Application) => {
+        const u = app.user || {};
+        const fullNameFromParts = [u.first_name, u.last_name].filter(Boolean).join(' ').trim();
+        const fullNameFromTopLevel = [app.first_name, app.last_name].filter(Boolean).join(' ').trim();
+        return (
+            u.name ||
+            u.full_name ||
+            (fullNameFromParts.length ? fullNameFromParts : undefined) ||
+            (fullNameFromTopLevel.length ? fullNameFromTopLevel : undefined) ||
+            app.applicant_name ||
+            app.student_name ||
+            'Unknown'
+        );
+    };
+
+    const getApplicantEmail = (app: Application) => {
+        const u = app.user || {};
+        return u.email || app.email || '';
+    };
+
     return (
         <DashboardLayout userType="admin">
              <div className="relative p-4 sm:p-6 lg:p-8 bg-gray-900 min-h-screen text-white">
@@ -100,7 +127,7 @@ const AdminApplications: FC = () => {
                                         <TableBody>
                                             {applications.map((app) => (
                                                 <TableRow key={app.id} className="border-b border-white/10 hover:bg-white/5 transition-colors duration-200">
-                                                    <TableCell className="p-4 font-medium text-white">{app.user.name}</TableCell>
+                                                    <TableCell className="p-4 font-medium text-white">{getApplicantName(app)}</TableCell>
                                                     <TableCell className="p-4 text-gray-300">{app.course.title}</TableCell>
                                                     <TableCell className="p-4">{getStatusBadge(app.status)}</TableCell>
                                                     <TableCell className="p-4 text-right space-x-2">
@@ -151,8 +178,10 @@ const AdminApplications: FC = () => {
                                         <User className="w-6 h-6 text-purple-400 mt-1 flex-shrink-0" />
                                         <div>
                                             <p className="font-semibold text-gray-400 text-sm">Student</p>
-                                            <p className="text-white font-medium">{selectedApplication.user.name}</p>
-                                            <p className="text-gray-400 text-sm">{selectedApplication.user.email}</p>
+                                            <p className="text-white font-medium">{getApplicantName(selectedApplication)}</p>
+                                            {getApplicantEmail(selectedApplication) && (
+                                                <p className="text-gray-400 text-sm">{getApplicantEmail(selectedApplication)}</p>
+                                            )}
                                         </div>
                                     </div>
                                     <div className="flex items-start gap-4">
@@ -207,3 +236,4 @@ const AdminApplications: FC = () => {
 };
 
 export default AdminApplications;
+
