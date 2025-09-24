@@ -32,7 +32,7 @@ const HeroSection = () => {
             <div className="absolute -inset-2.5 bg-gradient-to-r from-purple-600 to-pink-600 rounded-3xl blur opacity-40 group-hover:opacity-60 transition-opacity duration-500 animate-pulse-slow"></div>
             <div className="relative bg-gray-800/60 backdrop-blur-md p-4 rounded-3xl shadow-2xl">
               <img 
-                src="https://res.cloudinary.com/dcmtpky4i/image/upload/v1751401471/WhatsApp_Image_2025-05-15_at_19.31.00_0a0a9434_vmsfvc.jpg"
+                src="https://res.cloudinary.com/dxenatty4/image/upload/v1758728194/avatars/uyysghre4rkmhkgftnxo.jpg"
                 alt="Student learning online"
                 className="rounded-2xl w-full"
               />
