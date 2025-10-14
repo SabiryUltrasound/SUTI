@@ -26,7 +26,7 @@ const Login = () => {
       body.append('username', email);
       body.append('password', password);
 
-      const url = 'https://student-portal-lms-seven.vercel.app/api/auth/token';
+      const url = '/api/auth/token';
 
       response = await fetch(url, {
         method: 'POST',
@@ -57,7 +57,7 @@ const Login = () => {
         localStorage.setItem('admin_access_token', access_token);
       } else {
         // For students, fetch profile to get full name
-        const profileResponse = await fetch('https://student-portal-lms-seven.vercel.app/api/profile/profile', {
+        const profileResponse = await fetch('/api/profile/profile', {
           headers: {
             'Authorization': `Bearer ${access_token}`,
           },
